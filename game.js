@@ -12,24 +12,14 @@ const gridCells = document.querySelectorAll(".grid-cell");
 
 let turn = 0;
 
-let gameIsLive = true;
+let gameIsActive = false;
 let winner = null;
 
 function refreshPage() {
     window.location.reload();
   }
 
-//instructions
-/*
-  let gamePlayText = () => {
-    if (turn % 2 == 0){
-        return `Player ${xSymbol} take your turn.`
-        
-    } else {
-        return `Player ${oSymbol} take your turn.`
-    }
-}
-*/
+
 
 //click to start game
 
@@ -41,6 +31,7 @@ playButton.on("mousedown", () => {
         playButton.addClass('btn btn-primary');
         gameInstructions.html(`Player ${xSymbol} take your turn.`);
         turn++;
+        gameIsActive = true;
 
     } else {
         playButton.text('Start Game');
@@ -55,6 +46,7 @@ playButton.on("mousedown", () => {
 //fill in the grid
 
 function fillTheGrid() {
+    if (gameIsActive === true){
   if (turn % 2 === 0) {
         console.log("x turn");
         gameInstructions.html(`Player ${xSymbol} take your turn.`);
@@ -63,7 +55,7 @@ function fillTheGrid() {
         gameInstructions.html(`Player ${oSymbol} take your turn.`);
     }
     turn++;
-    console.log(turn);
+    console.log(turn);}
     }
 
 
@@ -78,6 +70,7 @@ function checkWinStatus() {
 
 for (const gridCell of gridCells) {
     //handles a cell of all cells
+    
     gridCell.addEventListener("click", fillTheGrid);
 }
 
