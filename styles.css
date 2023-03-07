@@ -1,0 +1,34 @@
+.title {
+    text-align: center;
+    margin: 1%;
+    padding: 1%
+}
+
+  body {
+    background-color: #f5b042;
+  }
+
+  #game-page {
+    background-color: white;
+    border-radius: 30px;
+    padding: 3%;
+  }
+
+  .grid-container {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 5%;
+    margin: 0%, 5%;
+  }
+
+  .grid-cell {
+    width: 10rem;
+    height: 10rem;
+    border: 3px solid #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+  }

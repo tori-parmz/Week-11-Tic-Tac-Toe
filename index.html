@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe!</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+
+</head>
+<body>
+    <br>
+    <div class="container" id="game-page">
+        <div class="row justify-content-center">
+        <h1 class="title">Let's play Tic-Tac-Toe!</h1>
+        </div>
+        <div class="row justify-content-center">
+            <button type="button" class="btn btn-success" id="game-button">Start Game</button><br>
+        </div>
+        <div class="row justify-content-center mt-2">
+                <div class="col-2">
+
+                </div>
+                <div class="col-8">
+            <div class="instructions" style="background-color: beige; padding:5%; text-align: center;">
+            <p id="instructions-text">To play a new game, click the "Start Game" button.</p>
+            </div>
+            </div>
+            <div class="col-2">
+                    
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="grid-container">
+                <div class="grid-cell top-left"></div>
+                <div class="grid-cell top-middle"></div>
+                <div class="grid-cell top-right"></div>
+                <div class="grid-cell middle-left"></div>
+                <div class="grid-cell middle"></div>
+                <div class="grid-cell middle-right"></div>
+                <div class="grid-cell bottom-left"></div>
+                <div class="grid-cell bottom-middle"></div>
+                <div class="grid-cell bottom-right"></div>
+              </div>
+        </div>
+        
+    
+        </div>
+     
+    </div> 
+
+
+
+    
+
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
