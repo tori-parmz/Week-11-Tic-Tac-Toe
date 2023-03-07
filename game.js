@@ -8,7 +8,12 @@ const gameGrid = $('.grid-container');
 const xSymbol = "x";
 const oSymbol = "o";
 
+const gridCells = document.querySelectorAll(".grid-cell");
+
 let turn = 0;
+
+let gameIsLive = true;
+let winner = null;
 
 function refreshPage() {
     window.location.reload();
@@ -18,16 +23,16 @@ function refreshPage() {
 
   let gamePlayText = () => {
     if (turn % 2 == 0){
-        turn++;
         return `Player ${xSymbol} take your turn.`
         
     } else {
-        turn++;
         return `Player ${oSymbol} take your turn.`
     }
 }
+
 //click to start game
-playButton.on("mousedown", () =>{
+
+playButton.on("mousedown", () => {
     //console.log('Button works');
     if(playButton.text() === 'Start Game') {
         playButton.text('Reset Game');
@@ -45,18 +50,30 @@ playButton.on("mousedown", () =>{
     }
 });
 
-//game logic
-
-
 //fill in the grid
 
+function fillTheGrid() {
+   for (const gridCell of gridCells) {
+    if (turn % 2 === 0) {
+        gridCell.html(`${xSymbol}`);
+        turn++;
+    } else {
+        gridCell.html(`${oSymbol}`);
+        turn++
+    }
+}
+}
 
+//game logic
 
-
-const gamePlay = () => {
+function checkWinStatus() {
 
 }
 
+
 //find a winner
 
-
+for (const gridCell of gridCells) {
+    //handles a cell of all cells
+    gridCell.addEventListener("click", console.log(`I'm alive!`));
+}
