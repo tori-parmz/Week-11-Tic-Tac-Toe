@@ -20,7 +20,7 @@ function refreshPage() {
   }
 
 //instructions
-
+/*
   let gamePlayText = () => {
     if (turn % 2 == 0){
         return `Player ${xSymbol} take your turn.`
@@ -29,6 +29,7 @@ function refreshPage() {
         return `Player ${oSymbol} take your turn.`
     }
 }
+*/
 
 //click to start game
 
@@ -38,7 +39,8 @@ playButton.on("mousedown", () => {
         playButton.text('Reset Game');
         playButton.removeClass('btn btn-success');
         playButton.addClass('btn btn-primary');
-        gameInstructions.html(gamePlayText);
+        gameInstructions.html(`Player ${xSymbol} take your turn.`);
+        turn++;
 
     } else {
         playButton.text('Start Game');
@@ -53,16 +55,17 @@ playButton.on("mousedown", () => {
 //fill in the grid
 
 function fillTheGrid() {
-   for (const gridCell of gridCells) {
-    if (turn % 2 === 0) {
-        gridCell.html(`${xSymbol}`);
-        turn++;
+  if (turn % 2 === 0) {
+        console.log("x turn");
+        gameInstructions.html(`Player ${xSymbol} take your turn.`);
     } else {
-        gridCell.html(`${oSymbol}`);
-        turn++
+        console.log("o turn");
+        gameInstructions.html(`Player ${oSymbol} take your turn.`);
     }
-}
-}
+    turn++;
+    console.log(turn);
+    }
+
 
 //game logic
 
@@ -75,5 +78,7 @@ function checkWinStatus() {
 
 for (const gridCell of gridCells) {
     //handles a cell of all cells
-    gridCell.addEventListener("click", console.log(`I'm alive!`));
+    gridCell.addEventListener("click", fillTheGrid);
 }
+
+console.log(turn);
