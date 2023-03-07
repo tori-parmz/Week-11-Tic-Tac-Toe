@@ -22,13 +22,42 @@
     margin: 0%, 5%;
   }
 
+
   .grid-cell {
     width: 10rem;
     height: 10rem;
-    border: 3px solid #444;
+    border: 5px solid #444;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     cursor: pointer;
   }
+
+  p {
+    font-size: x-large;
+  }
+
+  /* removes the top border */
+.grid-cell:first-child,
+.grid-cell:nth-child(2),
+.grid-cell:nth-child(3) {
+  border-top: none;
+}
+
+/* removes the left border */
+.grid-cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+/* removes the right border */
+.grid-cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+/* removes the bottom border */
+.grid-cell:last-child,
+.grid-cell:nth-last-child(2),
+.grid-cell:nth-last-child(3) {
+  border-bottom: none;
+}
