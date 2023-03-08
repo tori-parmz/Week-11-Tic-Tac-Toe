@@ -22,6 +22,7 @@ let gameCell7 = $(".grid-cell bottom-left");
 let gameCell8 = $(".grid-cell bottom-middle");
 let gameCell9 = $(".grid-cell bottom-right");
 
+
 let turn = 0;
 let gameStatus = ["", "", "", "", "", "", "", ""];
 
@@ -60,11 +61,11 @@ function fillTheGrid(e) {
     if (gameIsActive === true){
         for (const gridCell of gridCells){
   if (turn % 2 === 0) {
-        console.log("o turn");
+        //console.log("o turn");
         gameInstructions.html(`Player ${xSymbol} take your turn.`);
 
     } else {
-        console.log("x turn");
+        //console.log("x turn");
         gameInstructions.html(`Player ${oSymbol} take your turn.`);
     }}
     turn++;
