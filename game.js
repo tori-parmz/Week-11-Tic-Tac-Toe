@@ -10,7 +10,20 @@ const oSymbol = "o";
 //selecting grid cells
 const gridCells = document.querySelectorAll(".grid-cell");
 
+//organize my grid
+
+let gameCell1 = $(".grid-cell top-left");
+let gameCell2 = $(".grid-cell top-middle");
+let gameCell3 = $(".grid-cell top-right");
+let gameCell4 = $(".grid-cell middle-left");
+let gameCell5 = $(".grid-cell middle");
+let gameCell6 = $(".grid-cell middle-right");
+let gameCell7 = $(".grid-cell bottom-left");
+let gameCell8 = $(".grid-cell bottom-middle");
+let gameCell9 = $(".grid-cell bottom-right");
+
 let turn = 0;
+let gameStatus = ["", "", "", "", "", "", "", ""];
 
 //game begins with game inactive
 let gameIsActive = false;
@@ -47,12 +60,11 @@ function fillTheGrid(e) {
     if (gameIsActive === true){
         for (const gridCell of gridCells){
   if (turn % 2 === 0) {
-        console.log("x turn");
+        console.log("o turn");
         gameInstructions.html(`Player ${xSymbol} take your turn.`);
 
-
     } else {
-        console.log("o turn");
+        console.log("x turn");
         gameInstructions.html(`Player ${oSymbol} take your turn.`);
     }}
     turn++;
