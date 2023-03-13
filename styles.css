@@ -20,6 +20,8 @@
     grid-template-columns: repeat(3, 1fr);
     padding: 5%;
     margin: 0%, 5%;
+    font-size: 4em;
+    font-weight: bold;
   }
 
 

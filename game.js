@@ -8,7 +8,7 @@ const xSymbol = "x";
 const oSymbol = "o";
 
 //selecting grid cells
-const gridCells = document.querySelectorAll(".grid-cell");
+const gridCells = document.getElementsByClassName('grid-cell');
 
 //organize my grid
 
@@ -58,35 +58,70 @@ playButton.on("mousedown", () => {
 //update instructions
 
 function fillTheGrid(e) {
-    if (gameIsActive === true){
-        for (const gridCell of gridCells){
-  if (turn % 2 === 0) {
-        //console.log("o turn");
-        gameInstructions.html(`Player ${xSymbol} take your turn.`);
+    for (let i = 0; i < gridCells.length; i++) {
+        
+        gridCells[i].addEventListener("click", () => {
+        console.log(gridCells[i]);
+        if (gameIsActive === true){
+            for (const gridCell of gridCells){
+        if (turn % 2 === 0) {
+            //console.log("o turn");
+            gameInstructions.html(`Player ${xSymbol} take your turn.`);
+            gridCells[i].innerHTML = 'O';
+            gridCells[i]
+            gameStatus[i] = "O";
+            console.log(gameStatus);
+    
+        } else {
+            //console.log("x turn");
+            gameInstructions.html(`Player ${oSymbol} take your turn.`);
+            gridCells[i].innerHTML = 'X';
+            gridCells[i]
+            gameStatus[i] = "O";
+            console.log(gameStatus);
+        }}
+        turn++;
+        console.log(turn);}
 
-    } else {
-        //console.log("x turn");
-        gameInstructions.html(`Player ${oSymbol} take your turn.`);
-    }}
-    turn++;
-    console.log(turn);}
+        })
+    }
+   
     }
 
 
 //game logic
 
+fillTheGrid();
+
 function checkWinStatus() {
+    //for loop, current iteration to winner
+    //creat variables for each win condition
+    for (let i = 0; i < 9; i++) {
+        
+
+    }
 
 }
+
+/*/ let winConditions = [
+//     [0, 1, 2],
+//     [3, 4, 5],
+//     [6, 7, 8],
+//     [0, 3, 6],
+//     [1, 4, 7],
+//     [2, 5, 8],
+//     [0, 4, 8],
+//     [2, 4, 6]
+// ]; */
 
 
 //find a winner
 
 //creates event listener for each cell that is clicked
-for (const gridCell of gridCells) {
+/*for (const gridCell of gridCells) {
     //handles a cell of all cells
     
     gridCell.addEventListener("click", fillTheGrid);
 }
 
-console.log(turn);
+console.log(turn);*/
