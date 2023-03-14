@@ -16,7 +16,7 @@
 
   .grid-container {
     display: grid;
-    gap: 10px;
+    gap: 0px;
     grid-template-columns: repeat(3, 1fr);
     padding: 5%;
     margin: 0%, 5%;

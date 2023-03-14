@@ -4,8 +4,8 @@ const playButton = $('#game-button');
 const gameGrid = $('.grid-container');
 
 //symbols
-const xSymbol = "x";
-const oSymbol = "o";
+const xSymbol = "X";
+const oSymbol = "O";
 
 //selecting grid cells
 const gridCells = document.getElementsByClassName('grid-cell');
@@ -57,53 +57,118 @@ playButton.on("mousedown", () => {
 
 //update instructions
 
-function fillTheGrid(e) {
+function fillTheGrid() {
     for (let i = 0; i < gridCells.length; i++) {
         
         gridCells[i].addEventListener("click", () => {
-        console.log(gridCells[i]);
-        if (gameIsActive === true){
+        if (gameIsActive === true && (gameStatus[i] === "")){
             for (const gridCell of gridCells){
         if (turn % 2 === 0) {
-            //console.log("o turn");
             gameInstructions.html(`Player ${xSymbol} take your turn.`);
-            gridCells[i].innerHTML = 'O';
-            gridCells[i]
-            gameStatus[i] = "O";
-            console.log(gameStatus);
+            gridCells[i].innerHTML = `${oSymbol}`;
+            gridCells[i].style.color = '#638beb';
+            gameStatus[i] = `${oSymbol}`
+            
+            
     
         } else {
-            //console.log("x turn");
+            
             gameInstructions.html(`Player ${oSymbol} take your turn.`);
-            gridCells[i].innerHTML = 'X';
-            gridCells[i]
-            gameStatus[i] = "O";
-            console.log(gameStatus);
-        }}
+            gridCells[i].innerHTML = `${xSymbol}`;
+            gridCells[i].style.color = '#f57b42';
+            
+            gameStatus[i] = `${xSymbol}`
+            
+            //console.log(gameStatus);
+            
+        }
+        //checkWinStatus();
         turn++;
         console.log(turn);}
 
-        })
+    
+
     }
+    });
+        
+    }
+}
    
-    }
 
 
 //game logic
 
 fillTheGrid();
 
+
+
 function checkWinStatus() {
+    
+let topLeft = gameStatus[0]
+  let topMiddle = gameStatus[1]
+  let topRight = gameStatus[2]
+  let middleLeft = gameStatus[3]
+  let middleMiddle = gameStatus[4]
+  let middleRight = gameStatus[5]
+  let bottomLeft = gameStatus[6]
+  let bottomMiddle = gameStatus[7]
+  let bottomRight = gameStatus[8]
+
+    if (topLeft === topMiddle && topLeft === topRight) {
+    gameIsActive = false;
+    winner = topLeft;
+    
+  } else if (middleLeft === middleMiddle && middleLeft === middleRight) {
+    gameIsActive = false;
+    winner = middleLeft;
+    
+  } else if (bottomLeft === bottomMiddle && bottomLeft === bottomRight) {
+    gameIsActive = false;
+    winner = bottomLeft;
+
+  } else if (topLeft === middleLeft && topLeft === bottomLeft){
+    gameIsActive = false;
+    winner = topLeft;
+    
+  } else if (topMiddle === middleMiddle && topMiddle === bottomMiddle) {
+    gameIsActive = false;
+    winner = topMiddle;
+  } else if (topRight === middleRight && topRight === bottomRight) {
+    gameIsActive = false;
+    winner = topRight;
+  } else if (topLeft === middleMiddle && topLeft === bottomRight) {
+    gameIsActive = false;
+    winner = topLeft;
+
+  } else if (topRight === middleMiddle && topRight === bottomLeft) {
+    gameIsActive = false;
+    winner = topRight;
+  } else if (
+    topLeft &&
+    topMiddle &&
+    topRight &&
+    middleLeft &&
+    middleMiddle &&
+    middleRight &&
+    bottomLeft &&
+    bottomMiddle &&
+    bottomRight
+  ) {
+    gameIsActive = false;
+  }
+
+    }
+
     //for loop, current iteration to winner
     //creat variables for each win condition
-    for (let i = 0; i < 9; i++) {
+    /*for (let i = 0; i < 9; i++) {
         
 
     }
 
 }
 
-/*/ let winConditions = [
+/* let winConditions = [
 //     [0, 1, 2],
 //     [3, 4, 5],
 //     [6, 7, 8],
@@ -116,12 +181,4 @@ function checkWinStatus() {
 
 
 //find a winner
-
-//creates event listener for each cell that is clicked
-/*for (const gridCell of gridCells) {
-    //handles a cell of all cells
-    
-    gridCell.addEventListener("click", fillTheGrid);
-}
-
-console.log(turn);*/
+//checkWinStatus();
