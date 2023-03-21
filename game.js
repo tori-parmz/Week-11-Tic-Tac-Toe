@@ -149,7 +149,7 @@ function checkWinStatus() {
     gameInstructions.css("font-size",'2rem');
     instructionsBackground.css("background-color",'#7ec466');
 
-  } else if (topRight && topRight === middleMiddle && topRight === bottomLeft) { //diagonal 
+  } else if (topRight && topRight === middleMiddle && topRight === bottomLeft) { //diagonal top right to bottom left
     gameIsActive = false;
     winner = topRight;
     console.log('Winner: ', winner);
@@ -158,7 +158,7 @@ function checkWinStatus() {
     gameInstructions.css("font-size",'2rem');
     instructionsBackground.css("background-color",'#7ec466');
 
-  } else if (
+  } else if ( //tie condition
     topLeft &&
     topMiddle &&
     topRight &&
@@ -169,9 +169,9 @@ function checkWinStatus() {
     bottomMiddle &&
     bottomRight
   ) {
-    gameIsActive = false;
+    gameIsActive = false; //game is no longer active
     console.log('No winner');
-    gameInstructions.html(`It's a tie!`);
+    gameInstructions.html(`It's a tie!`); //announces tie
     gameInstructions.css("color",'white');
     gameInstructions.css("font-size",'2rem');
     instructionsBackground.css("background-color",'#e08767');
