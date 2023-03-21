@@ -1,32 +1,15 @@
 //game constants
 const gameInstructions = $('#instructions-text');
+const instructionsBackground = $('.instructions');
 const playButton = $('#game-button');
-const gameGrid = $('.grid-container');
 
-//symbols
-const xSymbol = "X";
-const oSymbol = "O";
+//currentPlayer begins on string X because X will take the first turn
+let currentPlayer = 'X'
 
-//selecting grid cells
+//select grid cells
 const gridCells = document.getElementsByClassName('grid-cell');
 
-//organize my grid
-
-let gameCell1 = $(".grid-cell top-left");
-let gameCell2 = $(".grid-cell top-middle");
-let gameCell3 = $(".grid-cell top-right");
-let gameCell4 = $(".grid-cell middle-left");
-let gameCell5 = $(".grid-cell middle");
-let gameCell6 = $(".grid-cell middle-right");
-let gameCell7 = $(".grid-cell bottom-left");
-let gameCell8 = $(".grid-cell bottom-middle");
-let gameCell9 = $(".grid-cell bottom-right");
-
-
-let turn = 0;
-let gameStatus = ["", "", "", "", "", "", "", ""];
-
-//game begins with game inactive
+//game begins with game inactive and winner null
 let gameIsActive = false;
 let winner = null;
 
@@ -34,16 +17,15 @@ function refreshPage() {
     window.location.reload();
   }
 
-//click to start game
+//click to start game, game becomes active and instructions text changes
 
 playButton.on("mousedown", () => {
     if(playButton.text() === 'Start Game') {
         playButton.text('Reset Game');
         playButton.removeClass('btn btn-success');
         playButton.addClass('btn btn-primary');
-        gameInstructions.html(`Player ${xSymbol} take your turn.`);
-        turn++;
         gameIsActive = true;
+        gameInstructions.html(`Player ${currentPlayer} take your turn.`);
 
     } else {
         playButton.text('Start Game');
@@ -55,94 +37,127 @@ playButton.on("mousedown", () => {
     }
 });
 
-//update instructions
+//a for/of loop adds an event listener to each of the grid cells
 
 function fillTheGrid() {
-    for (let i = 0; i < gridCells.length; i++) {
-        
-        gridCells[i].addEventListener("click", () => {
-        if (gameIsActive === true && (gameStatus[i] === "")){
-            for (const gridCell of gridCells){
-        if (turn % 2 === 0) {
-            gameInstructions.html(`Player ${xSymbol} take your turn.`);
-            gridCells[i].innerHTML = `${oSymbol}`;
-            gridCells[i].style.color = '#638beb';
-            gameStatus[i] = `${oSymbol}`
-            
-            
-    
-        } else {
-            
-            gameInstructions.html(`Player ${oSymbol} take your turn.`);
-            gridCells[i].innerHTML = `${xSymbol}`;
-            gridCells[i].style.color = '#f57b42';
-            
-            gameStatus[i] = `${xSymbol}`
-            
-            //console.log(gameStatus);
-            
-        }
-        //checkWinStatus();
-        turn++;
-        console.log(turn);}
+  
+  for (let gridCell of gridCells){
+  
+  gridCell.addEventListener("click", () => {
 
-    
-
-    }
-    });
-        
-    }
-}
-   
-
-
-//game logic
+    if (gameIsActive === true &&(gridCell.innerHTML === '')) { //game must be active and cell must be empty
+          //console.log('passed condition');
+          gridCell.innerHTML = `${currentPlayer}`;
+          
+          if (currentPlayer === 'X') { //automatically switches to player O after click event
+            currentPlayer = 'O';
+            gridCell.style.color = '#f57b42';
+            //console.log(currentPlayer);
+          } else {
+            currentPlayer = 'X';
+            gridCell.style.color = '#638beb';
+            //console.log(currentPlayer);
+          }
+          gameInstructions.html(`Player ${currentPlayer} take your turn.`); //updates instructions after the current player is switched
+          checkWinStatus(); //after all of this is done, it will check fo win status
+      
+      
+          }
+      });
+    } 
+  }
 
 fillTheGrid();
 
 
 
 function checkWinStatus() {
-    
-let topLeft = gameStatus[0]
-  let topMiddle = gameStatus[1]
-  let topRight = gameStatus[2]
-  let middleLeft = gameStatus[3]
-  let middleMiddle = gameStatus[4]
-  let middleRight = gameStatus[5]
-  let bottomLeft = gameStatus[6]
-  let bottomMiddle = gameStatus[7]
-  let bottomRight = gameStatus[8]
 
-    if (topLeft === topMiddle && topLeft === topRight) {
-    gameIsActive = false;
-    winner = topLeft;
+  //assign the variables to compare using the indexes of the grid cells
+  //comparing the inner html
+  const topLeft = gridCells[0].innerHTML;
+  const topMiddle = gridCells[1].innerHTML;
+  const topRight = gridCells[2].innerHTML;
+  const middleLeft = gridCells[3].innerHTML;
+  const middleMiddle = gridCells[4].innerHTML;
+  const middleRight = gridCells[5].innerHTML;
+  const bottomLeft = gridCells[6].innerHTML;
+  const bottomMiddle = gridCells[7].innerHTML;
+  const bottomRight = gridCells[8].innerHTML;
+
+
+    if (topLeft && topLeft === topMiddle && topLeft === topRight) { //top row is all the same
+    gameIsActive = false;//game is no longer active
+    winner = topLeft; //assigns winner
+    console.log('Winner: ', winner);
     
-  } else if (middleLeft === middleMiddle && middleLeft === middleRight) {
+    gameInstructions.html(`${winner} is the winner!`); //announces winner
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
+
+  } else if (middleLeft && middleLeft === middleMiddle && middleLeft === middleRight) { //middle row is all the same
     gameIsActive = false;
     winner = middleLeft;
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
     
-  } else if (bottomLeft === bottomMiddle && bottomLeft === bottomRight) {
+  } else if (bottomLeft && bottomLeft === bottomMiddle && bottomLeft === bottomRight) { //bottom row is all the same
     gameIsActive = false;
     winner = bottomLeft;
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
 
-  } else if (topLeft === middleLeft && topLeft === bottomLeft){
+  } else if (topLeft && topLeft === middleLeft && topLeft === bottomLeft){ //left side
     gameIsActive = false;
     winner = topLeft;
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
     
-  } else if (topMiddle === middleMiddle && topMiddle === bottomMiddle) {
-    gameIsActive = false;
+  } else if (topMiddle && topMiddle === middleMiddle && topMiddle === bottomMiddle) { //middle column
     winner = topMiddle;
-  } else if (topRight === middleRight && topRight === bottomRight) {
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
+
+  } else if (topRight && topRight === middleRight && topRight === bottomRight) { //right side
     gameIsActive = false;
     winner = topRight;
-  } else if (topLeft === middleMiddle && topLeft === bottomRight) {
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
+
+  } else if (topLeft && topLeft === middleMiddle && topLeft === bottomRight) { //diagonal top left to bottom right
     gameIsActive = false;
     winner = topLeft;
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
 
-  } else if (topRight === middleMiddle && topRight === bottomLeft) {
+  } else if (topRight && topRight === middleMiddle && topRight === bottomLeft) { //diagonal 
     gameIsActive = false;
     winner = topRight;
+    console.log('Winner: ', winner);
+    gameInstructions.html(`${winner} is the winner!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#7ec466');
+
   } else if (
     topLeft &&
     topMiddle &&
@@ -155,20 +170,17 @@ let topLeft = gameStatus[0]
     bottomRight
   ) {
     gameIsActive = false;
+    console.log('No winner');
+    gameInstructions.html(`It's a tie!`);
+    gameInstructions.css("color",'white');
+    gameInstructions.css("font-size",'2rem');
+    instructionsBackground.css("background-color",'#e08767');
   }
-
-    }
-
-    //for loop, current iteration to winner
-    //creat variables for each win condition
-    /*for (let i = 0; i < 9; i++) {
-        
-
-    }
-
+  
 }
 
-/* let winConditions = [
+
+/* Win Conditions
 //     [0, 1, 2],
 //     [3, 4, 5],
 //     [6, 7, 8],
@@ -177,8 +189,4 @@ let topLeft = gameStatus[0]
 //     [2, 5, 8],
 //     [0, 4, 8],
 //     [2, 4, 6]
-// ]; */
-
-
-//find a winner
-//checkWinStatus();
+// */
